@@ -20,7 +20,7 @@
             android:id="@+id/img_thumb"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/apple"
+            android:src="@drawable/ic_menu_food_apple"
             card_view:srcCompat="@drawable/ic_menu_camera" />
 
         <TextView
