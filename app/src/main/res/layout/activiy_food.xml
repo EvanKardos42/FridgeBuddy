@@ -8,6 +8,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="enigmastudios.fridgebuddy.ProducePricePrediction"
     tools:showIn="@layout/app_bar">
-    
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_food"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </android.support.constraint.ConstraintLayout>
