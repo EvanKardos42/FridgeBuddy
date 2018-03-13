@@ -9,10 +9,12 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <include
-        layout="@layout/app_bar"
+
+    <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+    <fragment
+        android:id="@+id/content_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -20,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_produce_price_prediction"
+        app:headerLayout="@layout/nav_header_for_menu"
         app:menu="@menu/activity_menu_list"/>
 
 </android.support.v4.widget.DrawerLayout>

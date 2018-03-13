@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="enigmastudios.fridgebuddy.ProducePricePrediction">
+    tools:context="enigmastudios.fridgebuddy.DrawerMenu">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/activiy_food"/>
+    <include layout="@layout/frag_food_display"/>
 
 </android.support.design.widget.CoordinatorLayout>
