@@ -1,10 +1,15 @@
 package enigmastudios.fridgebuddy;
 
+import java.util.List;
+
 /**
  * Created by jerry on 3/20/18.
  */
 
 public class Favorites {
+
+    private List<FoodItem> FavoriteFoodList;
+    //public View getView((int i , int ))
     //add food to an array
     public boolean addFavFood()//when star item
     {

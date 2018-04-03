@@ -4,17 +4,16 @@ package enigmastudios.fridgebuddy;
  * Created by jerry on 3/22/18.
  */
 
-public class Recipes {
-
+public class FoodItem {
     private int id;
     private String name, descript;
     private double movement;
     private double price;
     private int image;
-    //also need image the id of where ever we get or stock
+    //also need image the id of whereever we get or stock
 
 
-    public Recipes(int id, String name, String descript, double movement, double price, int image) {
+    public FoodItem(int id, String name, String descript, double movement, double price, int image) {
         this.id = id;
         this.name = name;
         this.descript = descript;
