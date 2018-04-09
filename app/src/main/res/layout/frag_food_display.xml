@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="enigmastudios.fridgebuddy.DrawerMenu"
-    tools:showIn="@layout/app_bar">
+    tools:context="enigmastudios.fridgebuddy.DrawerMenu">
 
     <TextView
         android:layout_width="wrap_content"

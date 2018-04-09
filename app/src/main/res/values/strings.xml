@@ -8,4 +8,5 @@
     <string name="app_label">food</string>
     <string name="search_hint">Search</string>
     <string name="search_title">find food</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

@@ -18,7 +18,10 @@ public class DrawerMenu extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_menu);
+        //
+        //
+        //trying to see if this will hold the fragments
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,7 +73,9 @@ public class DrawerMenu extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment frag = null;
         if (id == R.id.nav_foods) {
+           frag = new FoodFragment();
 
         } else if (id == R.id.nav_recipes) {
 
@@ -80,7 +85,11 @@ public class DrawerMenu extends AppCompatActivity
         }
         else{
         }
-
+        if(frag != null)
+        {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_menu ,frag);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
