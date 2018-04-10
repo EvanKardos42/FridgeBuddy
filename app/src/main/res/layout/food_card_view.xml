@@ -8,6 +8,7 @@
         android:id="@+id/image_food"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
             android:layout_height="wrap_content"/>
 
         <ImageButton
-            android:id="@+id/image_arrow"
+            android:id="@+id/image_button_save"
+            android:src="@drawable/star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

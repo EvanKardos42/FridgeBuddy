@@ -88,7 +88,8 @@ public class DrawerMenu extends AppCompatActivity
         if(frag != null)
         {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_menu ,frag);
+            ft.replace(R.id.content_frame ,frag);
+            ft.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
