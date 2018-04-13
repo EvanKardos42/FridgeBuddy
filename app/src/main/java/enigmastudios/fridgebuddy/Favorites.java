@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Favorites {
 
-    private List<FoodItem> FavoriteFoodList;
+    private List<FoodItem> FoodList;
+    private List<Recipe> RecipeList;
     //public View getView((int i , int ))
     //add food to an array
     public boolean addFavFood()//when star item
@@ -22,6 +23,18 @@ public class Favorites {
     }
     //remove
     public boolean removeFavFood()//when unstar item
+    {
+        return true;
+    }
+    public boolean addFavRecipe()
+    {
+        return true;
+    }
+    public boolean getFavRecipe()
+    {
+        return true;
+    }
+    public boolean removeFavRecipe()
     {
         return true;
     }
