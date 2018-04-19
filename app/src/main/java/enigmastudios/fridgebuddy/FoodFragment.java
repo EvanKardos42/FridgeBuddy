@@ -13,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 /**
@@ -21,6 +24,8 @@ import java.util.List;
 
 public class FoodFragment extends Fragment {
     RecyclerView rc;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("List");
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,22 +38,30 @@ public class FoodFragment extends Fragment {
                                 container, false);
     }
     private class FoodHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener
     {
         private TextView mTitle;
         private ImageView mImage;
         private ImageButton mImageButton;
-        FoodItem mFood;
+        private FoodItem mFood;
         public FoodHolder(LayoutInflater inflater, ViewGroup parent)
         {
             super(inflater.inflate(R.layout.food_card_view,parent,false));
             mTitle = (TextView) itemView.findViewById(R.id.name_food);
             mImage = (ImageView) itemView.findViewById(R.id.image_food);
             mImageButton = (ImageButton) itemView.findViewById(R.id.image_button_save);
+            itemView.setOnClickListener(this);
         }
+
         public void bind(FoodItem food){
             mFood = food;
             mTitle.setText(mFood.getName());
             //mImage.setImageDrawable(mFood.getImage());
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
     }
 
@@ -66,7 +79,8 @@ public class FoodFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(FoodHolder holder, int position) {
-
+            FoodItem f = mList.get(position);
+            holder.bind(f);
         }
 
         @Override
