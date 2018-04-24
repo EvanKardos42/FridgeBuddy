@@ -5,24 +5,19 @@ package enigmastudios.fridgebuddy;
  */
 
 public class FoodItem {
-    private int id;
-    private String name, descript;
-    private double movement;
-    private double price;
-    private int image;
+    private String id;
+    private String name;
+    private String image;
     //also need image the id of whereever we get or stock
 
 
-    public FoodItem(int id, String name, String descript, double movement, double price, int image) {
+    public FoodItem(String id, String name, String image) {
         this.id = id;
         this.name = name;
-        this.descript = descript;
-        this.movement = movement;
-        this.price = price;
         this.image = image;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -30,19 +25,19 @@ public class FoodItem {
         return name;
     }
 
-    public String getDescript() {
-        return descript;
-    }
-
-    public double getMovement() {
-        return movement;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public int getImage(){
+    public String getImage(){
         return image;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

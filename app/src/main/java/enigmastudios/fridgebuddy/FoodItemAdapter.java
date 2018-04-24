@@ -1,6 +1,8 @@
 package enigmastudios.fridgebuddy;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -32,15 +38,19 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
 
     @Override
     public void onBindViewHolder(FoodItemAdapter.FoodItemViewHolder holder, int position) {
-        FoodItem FoodItem = FoodItemList.get(position);
-        holder.textViewTitle.setText(FoodItem.getName());
-        holder.textViewDesc.setText(FoodItem.getDescript());
-        holder.textViewPrice.setText(String.valueOf(FoodItem.getPrice()));
-        holder.textViewMovem.setText(String.valueOf(FoodItem.getMovement()));
+        FoodItem foodItem = FoodItemList.get(position);
+        holder.textViewTitle.setText(foodItem.getName());
+        try {
+            Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(foodItem.getImage()).getContent());
+            holder.imageView.setImageBitmap(bitmap);
 
-        holder.imageView.setImageDrawable(Ctx.getResources().getDrawable(FoodItem.getImage(), null));
-
-
+        }
+        catch (MalformedURLException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

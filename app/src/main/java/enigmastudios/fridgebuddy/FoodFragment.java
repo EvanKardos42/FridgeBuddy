@@ -1,21 +1,32 @@
 package enigmastudios.fridgebuddy;
 
+
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,69 +34,43 @@ import java.util.List;
  */
 
 public class FoodFragment extends Fragment {
-    RecyclerView rc;
+    ListView lv;
+    String s[] ={"the","and","old"};
+    ArrayList<String> values = new ArrayList<String>(Arrays.asList(s));
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("List");
+    DatabaseReference myRef = database.getReference("List").child("userID");
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.setHasOptionsMenu(true);
-        View v = inflater.inflate(R.layout.food_fragment,container,false);
-        rc = (RecyclerView) v.findViewById(R.id.rv_food);
-        // Inflate the layout for this fragment
-        rc.setLayoutManager(new GridLayoutManager(getActivity(),4));
+        View rootView = inflater.inflate(R.layout.food_fragment,container,false);
+
+        lv =  (ListView) rootView.findViewById(R.id.listThing);
+        lv.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.list_content, s));
+
+       /* myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String food = child.getValue(String.class);
+                    //food.setId(child.getKey());
+                    System.out.println(food);
+                    values.add(food);
+                }
+                mFoodAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
         return inflater.inflate(R.layout.food_fragment,
                                 container, false);
     }
-    private class FoodHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener
-    {
-        private TextView mTitle;
-        private ImageView mImage;
-        private ImageButton mImageButton;
-        private FoodItem mFood;
-        public FoodHolder(LayoutInflater inflater, ViewGroup parent)
-        {
-            super(inflater.inflate(R.layout.food_card_view,parent,false));
-            mTitle = (TextView) itemView.findViewById(R.id.name_food);
-            mImage = (ImageView) itemView.findViewById(R.id.image_food);
-            mImageButton = (ImageButton) itemView.findViewById(R.id.image_button_save);
-            itemView.setOnClickListener(this);
-        }
 
-        public void bind(FoodItem food){
-            mFood = food;
-            mTitle.setText(mFood.getName());
-            //mImage.setImageDrawable(mFood.getImage());
-        }
-
-        @Override
-        public void onClick(View view) {
-
-        }
-    }
-
-    private class FoodAdapter extends RecyclerView.Adapter<FoodHolder>{
-        List<FoodItem> mList;
-
-        public FoodAdapter(List<FoodItem> list){
-            mList = list;
-        }
-        @Override
-        public FoodHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new FoodHolder(layoutInflater, parent);
-        }
-
-        @Override
-        public void onBindViewHolder(FoodHolder holder, int position) {
-            FoodItem f = mList.get(position);
-            holder.bind(f);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mList.size();
-        }
-    }
 }

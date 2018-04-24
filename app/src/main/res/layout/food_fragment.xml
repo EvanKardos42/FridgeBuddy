@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Food_fragment">
+    tools:context="enigmastudios.fridgebuddy.DrawerMenu">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_food"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"/>
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/listThing"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:text="stuff"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
 
 </FrameLayout>
