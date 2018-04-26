@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,7 +19,10 @@ public class DrawerMenu extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_menu);
+        //
+        //
+        //trying to see if this will hold the fragments
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -28,6 +32,9 @@ public class DrawerMenu extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container ,new FoodFragment());
+        ft.commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -72,6 +79,7 @@ public class DrawerMenu extends AppCompatActivity
         int id = item.getItemId();
         Fragment frag = null;
         if (id == R.id.nav_foods) {
+           frag = new FoodFragment();
 
         } else if (id == R.id.nav_recipes) {
             frag = new RecipeFragment();
@@ -85,10 +93,9 @@ public class DrawerMenu extends AppCompatActivity
         if(frag != null)
         {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame ,frag);
+            ft.replace(R.id.fragment_container ,frag);
             ft.commit();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

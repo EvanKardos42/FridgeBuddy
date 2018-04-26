@@ -1,36 +1,20 @@
 package enigmastudios.fridgebuddy;
 
-import android.os.Bundle;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-
-/**
- * Created by jerry on 3/22/18.
- */
-
 public class FoodItem {
-    private int id;
-    private String name, descript;
-    private double movement;
-    private double price;//optional
-    private String image; //maybe replace the bottome
 
-    //also need image the id of whereever we get or stock
+    private String id;
+    private String name;
+    private String image;
 
+    public FoodItem(){}
 
-
-    public FoodItem(int id, String name, String descript, double movement, double price, String image)
-    {
+    public FoodItem(String id, String name, String image) {
         this.id = id;
         this.name = name;
-        this.descript = descript;
-        this.movement = movement;
-        this.price = price;
         this.image = image;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -38,19 +22,19 @@ public class FoodItem {
         return name;
     }
 
-    public String getDescript() {
-        return descript;
-    }
-
-    public double getMovement() {
-        return movement;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
     public String getImage(){
         return image;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
