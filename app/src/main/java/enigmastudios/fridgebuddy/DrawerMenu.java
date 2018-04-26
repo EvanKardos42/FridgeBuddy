@@ -70,15 +70,23 @@ public class DrawerMenu extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment frag = null;
         if (id == R.id.nav_foods) {
 
         } else if (id == R.id.nav_recipes) {
+            frag = new RecipeFragment();
 
         } else if (id == R.id.nav_shopping_list) {
 
         } else if (id == R.id.nav_favs) {
         }
         else{
+        }
+        if(frag != null)
+        {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame ,frag);
+            ft.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

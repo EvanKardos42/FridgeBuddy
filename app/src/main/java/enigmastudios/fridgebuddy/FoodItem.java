@@ -1,5 +1,10 @@
 package enigmastudios.fridgebuddy;
 
+import android.os.Bundle;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+
 /**
  * Created by jerry on 3/22/18.
  */
@@ -8,12 +13,15 @@ public class FoodItem {
     private int id;
     private String name, descript;
     private double movement;
-    private double price;
-    private int image;
+    private double price;//optional
+    private String image; //maybe replace the bottome
+
     //also need image the id of whereever we get or stock
 
 
-    public FoodItem(int id, String name, String descript, double movement, double price, int image) {
+
+    public FoodItem(int id, String name, String descript, double movement, double price, String image)
+    {
         this.id = id;
         this.name = name;
         this.descript = descript;
@@ -42,7 +50,7 @@ public class FoodItem {
         return price;
     }
 
-    public int getImage(){
+    public String getImage(){
         return image;
     }
 }

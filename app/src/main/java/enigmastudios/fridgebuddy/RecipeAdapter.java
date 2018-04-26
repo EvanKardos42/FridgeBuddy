@@ -1,3 +1,5 @@
+/**
+
 package enigmastudios.fridgebuddy;
 
 import android.content.Context;
@@ -12,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by jerry on 3/22/18.
- */
+ *
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
 
@@ -63,8 +65,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             textViewDesc = itemView.findViewById(R.id.textViewDesc);
             textViewMovem = itemView.findViewById(R.id.textViewMovem);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
-            */
+            *
         }
     }
 }
 
+***/

@@ -1,12 +1,15 @@
 package enigmastudios.fridgebuddy;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -17,6 +20,8 @@ import java.util.List;
 public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodItemViewHolder> {
     private Context Ctx;
     private List<FoodItem> FoodItemList;
+    public String url;//pull from firebase
+    ImageView imageView;
 
     public FoodItemAdapter(Context ctx, List<FoodItem> FoodItemList) {
         this.Ctx = ctx;
@@ -38,11 +43,35 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
         holder.textViewPrice.setText(String.valueOf(FoodItem.getPrice()));
         holder.textViewMovem.setText(String.valueOf(FoodItem.getMovement()));
 
-        holder.imageView.setImageDrawable(Ctx.getResources().getDrawable(FoodItem.getImage(), null));
+        //holder.imageView.setImageDrawable(Ctx.getResources().getDrawable(FoodItem.getImage(), null)); //works when it is int not Srting
 
 
     }
+    /****** pput in main activity
+    @Override
+    protected  void onCreate(Bundle savedInstanceState)
+    {
+        imageView = (ImageView)findViewById(R.id.imageView);
+        loadImageFromUrl(url);
+    }
 
+    private void loadImageFromUrl(String url) {
+        Picasso.with(this).load(url).placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(imageView, new com.squareup.picasso.Callback(){
+
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+    }
+/**/
     @Override
     public int getItemCount() {
 
