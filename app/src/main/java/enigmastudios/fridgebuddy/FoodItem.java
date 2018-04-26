@@ -10,6 +10,7 @@ public class FoodItem {
     private String image;
     //also need image the id of whereever we get or stock
 
+    public FoodItem(){}
 
     public FoodItem(String id, String name, String image) {
         this.id = id;

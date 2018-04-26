@@ -1,17 +1,19 @@
 package enigmastudios.fridgebuddy;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.RecyclerView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,43 +35,76 @@ import java.util.List;
  */
 
 public class FoodFragment extends Fragment {
-    ListView lv;
-    String s[] ={"the","and","old"};
-    ArrayList<String> values = new ArrayList<String>(Arrays.asList(s));
+
+    ListView ls;
+    CustomAdapter ca;
+    ArrayList<FoodItem> values = new ArrayList<FoodItem>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("List").child("userID");
+    DatabaseReference myRef = database.getReference("Produce");
+    String TAG_FOOD = "FRIDGE.BUDDY.FOOD.POSITION";
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.setHasOptionsMenu(true);
-        View rootView = inflater.inflate(R.layout.food_fragment,container,false);
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.food_fragment, container, false);
+        ls = rootView.findViewById(R.id.listThing);
+        ca =  new CustomAdapter(getActivity(),R.layout.food_card_view,values);
 
-        lv =  (ListView) rootView.findViewById(R.id.listThing);
-        lv.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.list_content, s));
-
-       /* myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String food = child.getValue(String.class);
-                    //food.setId(child.getKey());
-                    System.out.println(food);
+                    FoodItem food = child.getValue(FoodItem.class);
+                    food.setId(child.getKey());
+                    System.out.println(food.getName());
                     values.add(food);
                 }
-                mFoodAdapter.notifyDataSetChanged();
+                ca.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
-
-        return inflater.inflate(R.layout.food_fragment,
-                                container, false);
+        });
+        ls.setAdapter(ca);
+        ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(),FoodDisplayInfo.class);
+                intent.putExtra(TAG_FOOD,position);
+                startActivity(intent);
+            }
+        });
+        return rootView;
     }
 
+    public class CustomAdapter extends ArrayAdapter<FoodItem>{
+        private final List<FoodItem> foods;
+
+        public CustomAdapter(Context context, int resource, ArrayList<FoodItem> foods) {
+            super(context, resource, foods);
+            this.foods = foods;
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            FoodItem food = foods.get(position);
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService
+                    (Context.LAYOUT_INFLATER_SERVICE);
+            @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.food_card_view, null);
+// Set the text
+            TextView textView = (TextView) row.findViewById(R.id.rowText);
+            textView.setText(food.getName());
+
+// Set the image
+            ImageView iv = row.findViewById(R.id.rowImage);
+            new DownLoadImageTask(iv).execute(food.getImage());
+            return row;
+        }
+    }
 }
