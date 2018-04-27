@@ -26,9 +26,6 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     public void setImage(int image) {
         this.image = image;
@@ -36,17 +33,15 @@ public class Recipe {
 
     private String name, descript;
     private String ingredients;
-    private double price;
     private int image;
     //also need image the id of where ever we get or stock
 
 
-    public Recipe(UUID id, String name, String descript, String ingredients, double price, int image) {
+    public Recipe(UUID id, String name, String descript, String ingredients, int image) {
         this.id = id;
         this.name = name;
         this.descript = descript;
         this.ingredients = ingredients;
-        this.price = price;
         this.image = image;
     }
     public Recipe() { //not sure about this empty
@@ -54,7 +49,6 @@ public class Recipe {
         this.name = name;
         this.descript = descript;
         this.ingredients = ingredients;
-        this.price = price;
         this.image = image;
     }
 
@@ -73,10 +67,6 @@ public class Recipe {
 
     public String getIngredients() {
         return ingredients;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public int getImage(){

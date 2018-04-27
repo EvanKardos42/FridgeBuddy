@@ -9,6 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+<<<<<<< HEAD
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+=======
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+>>>>>>> 7bcf1bbc5290016e0e744028dfeb28fd9f075578
 import java.util.List;
 
 /**
@@ -18,6 +31,12 @@ import java.util.List;
 public class RecipeFragment extends Fragment {
     private RecyclerView mRecipeRecyclerView;
     private RecipeAdapter mAdapter;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Recipes");
+<<<<<<< HEAD
+=======
+    ArrayList<Recipe> recipes = new ArrayList<>();
+>>>>>>> 7bcf1bbc5290016e0e744028dfeb28fd9f075578
 
     //@Nullable
     @Override
@@ -28,6 +47,21 @@ public class RecipeFragment extends Fragment {
         mRecipeRecyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler_view);//look into this p.172
         //return super.onCreateView(inflater, container, savedInstanceState);
         mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Recipe recipe = child.getValue(Recipe.class);
+                    System.out.println(recipe.getName());
+                    recipes.add(recipe);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         UpdateUI();
 
@@ -39,7 +73,7 @@ public class RecipeFragment extends Fragment {
         //CrimeLab crimeLab - CrimeLab.get(getActivity()):  ***need to add the equivlant from firebase
         //List<Recipe> recipes = recipeLab.getRecipes();
 
-        //mAdapter = new RecipeAdapter(recipes);
+        mAdapter = new RecipeAdapter(recipes);
         mRecipeRecyclerView.setAdapter(mAdapter);
 
     }
@@ -49,6 +83,7 @@ public class RecipeFragment extends Fragment {
         public RecipeHolder(LayoutInflater inflater, ViewGroup parent)
         {
             super(inflater.inflate(R.layout.recipe_list, parent,false)); //double check this list is right
+
         }
     }
     private class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder>

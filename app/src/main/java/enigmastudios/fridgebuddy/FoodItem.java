@@ -1,6 +1,8 @@
 package enigmastudios.fridgebuddy;
 
-public class FoodItem {
+import java.io.Serializable;
+
+public class FoodItem implements Serializable {
 
     private String id;
     private String name;

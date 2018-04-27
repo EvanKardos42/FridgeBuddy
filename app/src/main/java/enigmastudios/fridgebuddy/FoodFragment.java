@@ -41,7 +41,7 @@ public class FoodFragment extends Fragment {
     ArrayList<FoodItem> values = new ArrayList<FoodItem>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Produce");
-    String TAG_FOOD = "FRIDGE.BUDDY.FOOD.POSITION";
+    final static String TAG_FOOD = "FRIDGE.BUDDY.FOOD.POSITION";
 
 
 
@@ -75,7 +75,7 @@ public class FoodFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(),FoodDisplayInfo.class);
-                intent.putExtra(TAG_FOOD,position);
+                intent.putExtra(TAG_FOOD,values.get(position));
                 startActivity(intent);
             }
         });

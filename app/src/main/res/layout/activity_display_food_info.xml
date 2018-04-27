@@ -4,17 +4,42 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/produce_image"
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:id="@+id/display_food_image"/>
+        <TextView
+            android:text=" food name"
+            android:textSize="25sp"
+            android:id="@+id/display_food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
     <Button
+        android:textSize="25sp"
+        android:text="save to shopping list"
         android:id="@+id/save_to_shopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <Button
+        android:textSize="25sp"
+        android:text="favorite this food"
         android:id="@+id/save_to_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <Button
+        android:textSize="25sp"
+        android:id="@+id/prediction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prediction"/>
 
 </LinearLayout>
