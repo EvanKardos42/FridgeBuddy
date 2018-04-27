@@ -87,6 +87,7 @@ public class DrawerMenu extends AppCompatActivity
         } else if (id == R.id.nav_shopping_list) {
 
         } else if (id == R.id.nav_favs) {
+
         }
         else{
         }
