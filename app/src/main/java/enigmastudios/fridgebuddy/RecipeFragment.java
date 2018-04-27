@@ -41,7 +41,7 @@ public class RecipeFragment extends Fragment {
     ArrayList<Recipe> values = new ArrayList<Recipe>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Recipes");
-    //String TAG_recipe = "FRIDGE.BUDDY.recipe.POSITION";
+    String TAG_recipe = "FRIDGE.BUDDY.RECIPE.POSITION";
 
 
 
@@ -75,7 +75,7 @@ public class RecipeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(),RecipeDisplayInfo.class);
-                //intent.putExtra(TAG_recipe,position);
+                intent.putExtra(TAG_recipe,position);
                 startActivity(intent);
             }
         });

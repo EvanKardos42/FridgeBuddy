@@ -27,6 +27,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".FoodDisplayInfo"></activity>
+        <activity android:name=".RecipeDisplayInfo"></activity>
     </application>
 
 </manifest>
