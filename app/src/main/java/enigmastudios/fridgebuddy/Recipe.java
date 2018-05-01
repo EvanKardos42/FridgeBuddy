@@ -1,75 +1,80 @@
 package enigmastudios.fridgebuddy;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
  * Created by jerry on 3/22/18.
  */
 
-public class Recipe {
+public class Recipe implements Serializable {
 
-    private UUID id;
+    private String id;
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setDescript(String descript) {
-        this.descript = descript;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
+    public void setCategory(ArrayList<String> category) { this.category = category; }
 
-
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    private String name, descript;
-    private String ingredients;
-    private int image;
+    private String title, url;
+    private ArrayList<String> ingredients;
+    private String image;
+
+    private ArrayList<String> category;
     //also need image the id of where ever we get or stock
 
 
-    public Recipe(UUID id, String name, String descript, String ingredients, int image) {
+    public Recipe(String id, String title, String url, ArrayList<String> ingredients,ArrayList<String> category, String image) {
         this.id = id;
-        this.name = name;
-        this.descript = descript;
+        this.title = title;
+        this.url = url;
         this.ingredients = ingredients;
+        this.category = category;
         this.image = image;
     }
     public Recipe() { //not sure about this empty
         this.id = id;
-        this.name = name;
-        this.descript = descript;
+        this.title = title;
+        this.url = url;
         this.ingredients = ingredients;
         this.image = image;
+        this.category = category;
     }
 
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public String getDescript() {
-        return descript;
+    public String getUrl() {
+        return url;
     }
 
-    public String getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
-    public int getImage(){
-        return image;
-    }
+    public String getImage(){ return image; }
+    public ArrayList<String> getCategory() { return category; }
 }

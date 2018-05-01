@@ -10,11 +10,16 @@
         android:id="@+id/recipe_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crime Title"/>
+        android:text="title"/>
     <TextView
         android:id="@+id/recipe_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crime Date"/>
+        android:text="date"/>
+    <ImageView
+        android:id="@+id/recipe_descript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>

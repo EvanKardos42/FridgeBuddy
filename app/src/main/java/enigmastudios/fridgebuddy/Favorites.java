@@ -62,4 +62,3 @@ public class Favorites extends Activity{
     }
 
 }
-

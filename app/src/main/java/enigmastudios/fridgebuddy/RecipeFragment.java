@@ -1,60 +1,68 @@
 package enigmastudios.fridgebuddy;
 
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
-<<<<<<< HEAD
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-=======
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
->>>>>>> 7bcf1bbc5290016e0e744028dfeb28fd9f075578
 import java.util.List;
 
 /**
- * Created by jerry on 4/19/18.
+ * Created by Jerry Gaines on 3/8/18.
  */
 
 public class RecipeFragment extends Fragment {
-    private RecyclerView mRecipeRecyclerView;
-    private RecipeAdapter mAdapter;
+
+    ListView ls;
+    CustomAdapter ca;
+    ArrayList<Recipe> values = new ArrayList<Recipe>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Recipes");
-<<<<<<< HEAD
-=======
-    ArrayList<Recipe> recipes = new ArrayList<>();
->>>>>>> 7bcf1bbc5290016e0e744028dfeb28fd9f075578
+    String TAG_recipe = "FRIDGE.BUDDY.RECIPE.POSITION";
 
-    //@Nullable
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_recipe_list, container, false);
+        ls = rootView.findViewById(R.id.recipe_list);
+        ca =  new CustomAdapter(getActivity(),R.layout.recipe_layout,values);
 
-        mRecipeRecyclerView = (RecyclerView) view.findViewById(R.id.recipe_recycler_view);//look into this p.172
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        mRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Recipe recipe = child.getValue(Recipe.class);
-                    System.out.println(recipe.getName());
-                    recipes.add(recipe);
+                    Recipe recipe =  child.getValue(Recipe.class);
+                    recipe.setId(child.getKey());
+                    System.out.println(recipe.getTitle());
+                    values.add(recipe);
                 }
+                ca.notifyDataSetChanged();
             }
 
             @Override
@@ -62,53 +70,40 @@ public class RecipeFragment extends Fragment {
 
             }
         });
-
-        UpdateUI();
-
-        return view;
+        ls.setAdapter(ca);
+        ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(),RecipeDisplayInfo.class);
+                intent.putExtra(TAG_recipe,position);
+                startActivity(intent);
+            }
+        });
+        return rootView;
     }
 
-    private void UpdateUI()
-    {
-        //CrimeLab crimeLab - CrimeLab.get(getActivity()):  ***need to add the equivlant from firebase
-        //List<Recipe> recipes = recipeLab.getRecipes();
-
-        mAdapter = new RecipeAdapter(recipes);
-        mRecipeRecyclerView.setAdapter(mAdapter);
-
-    }
-
-    public class RecipeHolder extends RecyclerView.ViewHolder
-    {
-        public RecipeHolder(LayoutInflater inflater, ViewGroup parent)
-        {
-            super(inflater.inflate(R.layout.recipe_list, parent,false)); //double check this list is right
-
-        }
-    }
-    private class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder>
-    {
-        private List <Recipe> mRecipe;
-
-        public  RecipeAdapter(List<Recipe> recipes)
-        {
-            mRecipe = recipes;
+    public class CustomAdapter extends ArrayAdapter<Recipe>{
+        private final List<Recipe> recipes;
+        public CustomAdapter(Context context, int resource, ArrayList<Recipe> recipes) {
+            super(context, resource, recipes);
+            this.recipes = recipes;
         }
 
+        @NonNull
         @Override
-        public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from((getActivity()));
-            return new RecipeHolder(layoutInflater, parent);
-        }
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            Recipe recipe = recipes.get(position);
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService
+                    (Context.LAYOUT_INFLATER_SERVICE);
+            @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.recipe_layout, null);
+// Set the text
+            TextView textView = (TextView) row.findViewById(R.id.textbox);
+            textView.setText(recipe.getTitle());
 
-        @Override
-        public void onBindViewHolder(RecipeHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return mRecipe.size();
+// Set the image
+            ImageView iv = row.findViewById(R.id.img_thumb);
+            new DownLoadImageTask(iv).execute(recipe.getImage());
+            return row;
         }
     }
 }
