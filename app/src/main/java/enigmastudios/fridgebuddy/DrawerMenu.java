@@ -85,9 +85,10 @@ public class DrawerMenu extends AppCompatActivity
             frag = new RecipeFragment();
 
         } else if (id == R.id.nav_shopping_list) {
+            frag = new ShoppingListFragment();
 
         } else if (id == R.id.nav_favs) {
-
+            frag = new FavoritesFragment();
         }
         else{
         }
