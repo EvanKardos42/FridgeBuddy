@@ -3,6 +3,9 @@ package enigmastudios.fridgebuddy;
 import java.io.Serializable;
 
 public class FoodItem implements Serializable {
+    public static final String TABLE_NAME = "produce";
+    public static final String COLUMN_id = "id";
+    public static final String COLUMN_NAME = "name";
 
     private String id;
     private String name;

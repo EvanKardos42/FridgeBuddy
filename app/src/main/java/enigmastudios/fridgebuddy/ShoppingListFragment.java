@@ -4,6 +4,8 @@ package enigmastudios.fridgebuddy;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -39,10 +41,8 @@ public class ShoppingListFragment extends Fragment {
     ListView ls;
     CustomAdapter ca;
     ArrayList<FoodItem> values = new ArrayList<FoodItem>();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Produce");
-    final static String TAG_FOOD = "FRIDGE.BUDDY.FOOD.POSITION";
-
+    Cursor mCourse;
+    private SQLiteDatabase mDatabase;
 
 
     @Override
@@ -53,23 +53,26 @@ public class ShoppingListFragment extends Fragment {
         ls = rootView.findViewById(R.id.listThing);
         ca =  new CustomAdapter(getActivity(),R.layout.food_card_view,values);
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    FoodItem food = child.getValue(FoodItem.class);
-                    food.setId(child.getKey());
-                    System.out.println(food.getName());
-                    values.add(food);
-                }
-                ca.notifyDataSetChanged();
-            }
+        String [] production ={FoodItem.COLUMN_NAME};
+        mDatabase = new SaveShoppingList(this.getContext()).getReadableDatabase();
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        mCourse = mDatabase.query(FoodItem.TABLE_NAME,
+                                    production,
+                                null,
+                                null,
+                                    null,
+                                null,
+                                null);
 
-            }
-        });
+        mCourse.moveToFirst();
+        do {
+           String name = mCourse.getString(0);
+           FoodItem foodItem = new FoodItem();
+           foodItem.setName(name);
+           values.add(foodItem);
+        }while(mCourse.moveToNext());
+
+        ca.notifyDataSetChanged();
         ls.setAdapter(ca);
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,11 +100,11 @@ public class ShoppingListFragment extends Fragment {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
             @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.food_card_view, null);
-// Set the text
+            // Set the text
             TextView textView = (TextView) row.findViewById(R.id.rowText);
             textView.setText(food.getName());
 
-// Set the image
+            // Set the image
             ImageView iv = row.findViewById(R.id.rowImage);
             new DownLoadImageTask(iv).execute(food.getImage());
             return row;
