@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.net.Uri;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,7 +48,7 @@ public class RecipeFragment extends Fragment {
     ArrayList<Recipe> values = new ArrayList<Recipe>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Recipes");
-    String TAG_recipe = "FRIDGE.BUDDY.RECIPE.POSITION";
+    final static String TAG_recipe = "FRIDGE.BUDDY.RECIPE.POSITION";
 
 
 
@@ -65,8 +66,10 @@ public class RecipeFragment extends Fragment {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Recipe recipe =  child.getValue(Recipe.class);
                     recipe.setId(child.getKey());
-                    //Toast.makeText(getActivity(), recipe.getTag(), Toast.LENGTH_SHORT).show();
-                    //change this to !(list.contains(recipe.getTag())
+                    //change this to
+                    // if list.isEmpty() then values.add(recipe)
+                    // else if
+                    // !(list.contains(recipe.getTag()), then add values.recipe
                     if(recipe.getTag().equals("Broccoli")) {
                         values.add(recipe);
                     }
@@ -83,8 +86,8 @@ public class RecipeFragment extends Fragment {
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(),RecipeDisplayInfo.class);
-                intent.putExtra(TAG_recipe,position);
+                String x = values.get(position).getUrl();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(x));
                 startActivity(intent);
             }
         });
