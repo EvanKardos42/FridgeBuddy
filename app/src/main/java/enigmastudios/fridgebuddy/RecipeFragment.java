@@ -4,6 +4,11 @@ package enigmastudios.fridgebuddy;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -18,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,8 +65,11 @@ public class RecipeFragment extends Fragment {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Recipe recipe =  child.getValue(Recipe.class);
                     recipe.setId(child.getKey());
-                    System.out.println(recipe.getTitle());
-                    values.add(recipe);
+                    //Toast.makeText(getActivity(), recipe.getTag(), Toast.LENGTH_SHORT).show();
+                    //change this to !(list.contains(recipe.getTag())
+                    if(recipe.getTag().equals("Broccoli")) {
+                        values.add(recipe);
+                    }
                 }
                 ca.notifyDataSetChanged();
             }

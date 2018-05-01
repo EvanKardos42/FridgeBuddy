@@ -23,6 +23,9 @@ public class Recipe implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
@@ -33,7 +36,7 @@ public class Recipe implements Serializable {
         this.image = image;
     }
 
-    private String title, url;
+    private String title, url, tag;
     private ArrayList<String> ingredients;
     private String image;
 
@@ -45,6 +48,7 @@ public class Recipe implements Serializable {
         this.id = id;
         this.title = title;
         this.url = url;
+        this.tag = tag;
         this.ingredients = ingredients;
         this.category = category;
         this.image = image;
@@ -53,6 +57,7 @@ public class Recipe implements Serializable {
         this.id = id;
         this.title = title;
         this.url = url;
+        this.tag = tag;
         this.ingredients = ingredients;
         this.image = image;
         this.category = category;
@@ -69,6 +74,9 @@ public class Recipe implements Serializable {
 
     public String getUrl() {
         return url;
+    }
+    public String getTag() {
+        return tag;
     }
 
     public ArrayList<String> getIngredients() {
