@@ -74,9 +74,9 @@ public class ShoppingListFragment extends Fragment {
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(),FoodDisplayInfo.class);
-                intent.putExtra(TAG_FOOD,values.get(position));
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(),FoodDisplayInfo.class);
+//                intent.putExtra(TAG_FOOD,values.get(position));
+//                startActivity(intent);
             }
         });
         return rootView;
