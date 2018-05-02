@@ -33,16 +33,6 @@
                 android:textStyle="bold" />
 
 
-            <ImageView
-                android:id="@+id/favorite"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:clickable="true"
-                android:src="@drawable/star" />
-
-
         </RelativeLayout>
 
 

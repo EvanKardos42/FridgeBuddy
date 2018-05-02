@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FridgeBuddy.iml" filepath="$PROJECT_DIR$/FridgeBuddy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FridgeBuddy2.iml" filepath="$PROJECT_DIR$/FridgeBuddy2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
