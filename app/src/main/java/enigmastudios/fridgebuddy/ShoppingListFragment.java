@@ -3,12 +3,8 @@ package enigmastudios.fridgebuddy;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -21,14 +17,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +29,7 @@ public class ShoppingListFragment extends Fragment {
     ListView ls;
     CustomAdapter ca;
     ArrayList<FoodItem> values = new ArrayList<FoodItem>();
-    Cursor mCourse;
+    Cursor mCursor;
     private SQLiteDatabase mDatabase;
 
 
@@ -53,10 +41,11 @@ public class ShoppingListFragment extends Fragment {
         ls = rootView.findViewById(R.id.listThing);
         ca =  new CustomAdapter(getActivity(),R.layout.food_card_view,values);
 
-        String [] production ={FoodItem.COLUMN_NAME};
-        mDatabase = new SaveShoppingList(this.getContext()).getReadableDatabase();
+        String[] production = {FoodItem.COLUMN_NAME};
 
-        mCourse = mDatabase.query(FoodItem.TABLE_NAME,
+        mDatabase = new SaveShoppingListDataBase(this.getContext()).getReadableDatabase();
+
+        mCursor = mDatabase.query(FoodItem.TABLE_NAME,
                                     production,
                                 null,
                                 null,
@@ -64,13 +53,13 @@ public class ShoppingListFragment extends Fragment {
                                 null,
                                 null);
 
-        mCourse.moveToFirst();
+        mCursor.moveToFirst();
         do {
-           String name = mCourse.getString(0);
+           String name = mCursor.getString(0);
            FoodItem foodItem = new FoodItem();
            foodItem.setName(name);
            values.add(foodItem);
-        }while(mCourse.moveToNext());
+        }while(mCursor.moveToNext());
 
         ca.notifyDataSetChanged();
         ls.setAdapter(ca);

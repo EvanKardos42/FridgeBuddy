@@ -39,10 +39,6 @@ public class FavoritesFragment extends Fragment {
     ListView ls;
     CustomAdapter ca;
     ArrayList<FoodItem> values = new ArrayList<FoodItem>();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Produce");
-    final static String TAG_FOOD = "FRIDGE.BUDDY.FOOD.POSITION";
-
 
 
     @Override
@@ -53,23 +49,7 @@ public class FavoritesFragment extends Fragment {
         ls = rootView.findViewById(R.id.listThing);
         ca =  new CustomAdapter(getActivity(),R.layout.food_card_view,values);
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    FoodItem food = child.getValue(FoodItem.class);
-                    food.setId(child.getKey());
-                    System.out.println(food.getName());
-                    values.add(food);
-                }
-                ca.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         ls.setAdapter(ca);
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,7 +77,7 @@ public class FavoritesFragment extends Fragment {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
             @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.food_card_view, null);
-// Set the text
+    // Set the text
             TextView textView = (TextView) row.findViewById(R.id.rowText);
             textView.setText(food.getName());
 

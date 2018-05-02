@@ -5,25 +5,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.net.Uri;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,8 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +53,7 @@ public class RecipeFragment extends Fragment {
         ca =  new CustomAdapter(getActivity(),R.layout.recipe_layout,values);
 
         String [] production = {FoodItem.COLUMN_NAME};
-        mDatabase = new SaveShoppingList(this.getContext()).getReadableDatabase();
+        mDatabase = new SaveShoppingListDataBase(this.getContext()).getReadableDatabase();
         mCursor = mDatabase.query(FoodItem.TABLE_NAME,
                 production,
                 null,
