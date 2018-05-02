@@ -11,12 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 class FoodDisplayInfo  extends AppCompatActivity {
     //views
     FoodItem food;
@@ -34,7 +28,7 @@ class FoodDisplayInfo  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_food_info);
 
-        mDatabase = new SaveShoppingList(this.getApplicationContext()).getWritableDatabase();
+        mDatabase = new SaveShoppingListDataBase(this.getApplicationContext()).getWritableDatabase();
 
         food = (FoodItem) getIntent().getSerializableExtra(FoodFragment.TAG_FOOD);
         predict = new PredictionModel(food.getName());
@@ -50,6 +44,7 @@ class FoodDisplayInfo  extends AppCompatActivity {
 
             }
         });
+
         shopping =  findViewById(R.id.save_to_shopping);
         shopping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,11 +60,20 @@ class FoodDisplayInfo  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String stringPrediction=PredictionModel.prediction;
-                String result = "predicting prices for corn: " + stringPrediction;
+
+                if(prediction != null){
+                String result = "price " + stringPrediction;
                 Toast.makeText(FoodDisplayInfo.this,
                                 result,
                             Toast.LENGTH_LONG
                             ).show();
+                }
+                else {
+                    Toast.makeText(FoodDisplayInfo.this,
+                            "no model for selected food",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
             }
         });
     }

@@ -4,9 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class SaveShoppingList extends SQLiteOpenHelper {
+public class SaveShoppingListDataBase extends SQLiteOpenHelper {
 
-    public SaveShoppingList(Context context) {
+    public SaveShoppingListDataBase(Context context) {
         super(context, "food.db", null, 1);
     }
 

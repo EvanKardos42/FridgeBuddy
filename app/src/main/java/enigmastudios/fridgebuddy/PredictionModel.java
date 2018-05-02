@@ -7,6 +7,9 @@ public class PredictionModel {
 
     double cornIntercept = 44.22481612;
     double cornCoefficient = -0.000000027292576;
+    double butterCoefficient = 0.000000004646163;
+    double butterIntercept = 2.33492356;
+
     Date today = new Date();
     static String prediction;
 
@@ -17,17 +20,29 @@ public class PredictionModel {
         {
             if(cornModelPrediction() < 0)
             {
-                prediction =" will do down";
+                prediction = " will go down";
             }
             else
                 {
                     prediction = " will go up";
                 }
         }
+
+        if(food.compareTo("Butter") == 0)
+        {
+            if(butterModelPrediction() < 0)
+            {
+                prediction =" will go down";
+            }
+            else
+            {
+                prediction = " will go up";
+            }
+        }
     }
-    private double butterModel()
+    private double butterModelPrediction()
     {
-        return 0;
+        return butterCoefficient * today.getTime() + butterIntercept;
     }
 
 
