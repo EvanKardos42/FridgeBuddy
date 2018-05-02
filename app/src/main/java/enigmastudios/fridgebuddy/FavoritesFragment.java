@@ -51,7 +51,7 @@ public class FavoritesFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.food_fragment, container, false);
         ls = rootView.findViewById(R.id.listThing);
-        ca =  new CustomAdapter(getActivity(),R.layout.food_card_view,values);
+        ca =  new CustomAdapter(getActivity(),R.layout.favorite_layout,values);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -96,14 +96,14 @@ public class FavoritesFragment extends Fragment {
             FoodItem food = foods.get(position);
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.food_card_view, null);
+            @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.favorite_layout, null);
 // Set the text
             TextView textView = (TextView) row.findViewById(R.id.rowText);
             textView.setText(food.getName());
 
 // Set the image
-            ImageView iv = row.findViewById(R.id.rowImage);
-            new DownLoadImageTask(iv).execute(food.getImage());
+            //ImageView iv = row.findViewById(R.id.rowImage);
+            //new DownLoadImageTask(iv).execute(food.getImage());
             return row;
         }
     }
