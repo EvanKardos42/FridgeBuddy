@@ -25,6 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.net.Uri;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,8 +51,9 @@ public class RecipeFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Recipes");
     final static String TAG_recipe = "FRIDGE.BUDDY.RECIPE.POSITION";
-
-
+    Cursor mCursor;
+    SQLiteDatabase mDatabase;
+    ArrayList<String> favList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,17 +63,31 @@ public class RecipeFragment extends Fragment {
         ls = rootView.findViewById(R.id.recipe_list);
         ca =  new CustomAdapter(getActivity(),R.layout.recipe_layout,values);
 
+        String [] production = {FoodItem.COLUMN_NAME};
+        mDatabase = new SaveShoppingList(this.getContext()).getReadableDatabase();
+        mCursor = mDatabase.query(FoodItem.TABLE_NAME,
+                production,
+                null,
+                null,
+                null,
+                null,
+                null);
+        mCursor.moveToFirst();
+        do {
+            String name = mCursor.getString(0);
+            favList.add(name);
+        }while(mCursor.moveToNext());
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Recipe recipe =  child.getValue(Recipe.class);
                     recipe.setId(child.getKey());
                     //change this to
-                    // if list.isEmpty() then values.add(recipe)
-                    // else if
-                    // !(list.contains(recipe.getTag()), then add values.recipe
-                    if(recipe.getTag().equals("Broccoli")) {
+                    //(list.contains(anything from db), then add values.recipe
+                    if(favList.contains(recipe.getTag())) {
                         values.add(recipe);
                     }
                 }

@@ -53,12 +53,6 @@ public class Favorites extends Activity{
 
         setContentView(R.layout.recipe_layout);
 
-        final ImageView button = findViewById(R.id.favorite);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-            }
-        });
     }
 
 }
