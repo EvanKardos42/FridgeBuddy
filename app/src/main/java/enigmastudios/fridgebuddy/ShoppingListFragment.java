@@ -51,7 +51,7 @@ public class ShoppingListFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.food_fragment, container, false);
         ls = rootView.findViewById(R.id.listThing);
-        ca =  new CustomAdapter(getActivity(),R.layout.food_card_view,values);
+        ca =  new CustomAdapter(getActivity(),R.layout.shoppinglist_layout,values);
 
         String [] production ={FoodItem.COLUMN_NAME};
         mDatabase = new SaveShoppingList(this.getContext()).getReadableDatabase();
@@ -99,7 +99,7 @@ public class ShoppingListFragment extends Fragment {
             FoodItem food = foods.get(position);
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService
                     (Context.LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.food_card_view, null);
+            @SuppressLint("ViewHolder") View row = inflater.inflate(R.layout.shoppinglist_layout, null);
             // Set the text
             TextView textView = (TextView) row.findViewById(R.id.rowText);
             textView.setText(food.getName());
