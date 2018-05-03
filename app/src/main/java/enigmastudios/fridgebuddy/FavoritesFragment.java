@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ public class FavoritesFragment extends Fragment {
 
     ListView ls;
     CustomAdapter ca;
+
     ArrayList<FoodItem> values = new ArrayList<FoodItem>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Produce");
@@ -61,7 +63,7 @@ public class FavoritesFragment extends Fragment {
                 null);
 
         mCursor.moveToFirst();
-        if(mCursor.getCount() != 0) {
+        if(mCursor.getCount() > 0) {
             do {
                 String name = mCursor.getString(0);
                 FoodItem foodItem = new FoodItem();
@@ -101,8 +103,8 @@ public class FavoritesFragment extends Fragment {
             textView.setText(food.getName());
 
 // Set the image
-            //ImageView iv = row.findViewById(R.id.rowImage);
-            //new DownLoadImageTask(iv).execute(food.getImage());
+            ImageView iv = row.findViewById(R.id.rowImage);
+            new DownLoadImageTask(iv).execute(food.getImage());
             return row;
         }
     }

@@ -62,10 +62,12 @@ public class RecipeFragment extends Fragment {
                 null,
                 null);
         mCursor.moveToFirst();
-        do {
-            String name = mCursor.getString(0);
-            favList.add(name);
-        }while(mCursor.moveToNext());
+        if(mCursor.getCount() > 0) {
+            do {
+                String name = mCursor.getString(0);
+                favList.add(name);
+            } while (mCursor.moveToNext());
+        }
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,6 +79,10 @@ public class RecipeFragment extends Fragment {
                     //change this to
                     //(list.contains(anything from db), then add values.recipe
                     if(favList.contains(recipe.getTag())) {
+                        values.add(recipe);
+                    }
+                    else if(favList.isEmpty())
+                    {
                         values.add(recipe);
                     }
                 }
