@@ -95,13 +95,7 @@ public class ShoppingListFragment extends Fragment {
             // Set the text
             TextView textView = (TextView) row.findViewById(R.id.rowText);
             textView.setText(food.getName());
-<<<<<<< HEAD
-=======
 
-            // Set the image
-            //ImageView iv = row.findViewById(R.id.rowImage);
-            //new DownLoadImageTask(iv).execute(food.getImage());
->>>>>>> fd67a85d3bd443e6ae9ea15819ef73d880ab5ef0
             return row;
         }
     }
