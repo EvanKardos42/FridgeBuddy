@@ -52,7 +52,7 @@ public class FavoritesFragment extends Fragment {
 
         String[] production = {FoodItem.COLUMN_NAME};
 
-        mDatabase = new SaveShoppingListDataBase(this.getContext()).getReadableDatabase();
+        mDatabase = new SaveFavoritesDataBase(this.getContext()).getReadableDatabase();
 
         mCursor = mDatabase.query(FoodItem.TABLE_NAME,
                 production,
