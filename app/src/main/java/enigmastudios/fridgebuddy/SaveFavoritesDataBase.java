@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SaveFavoritesDataBase extends SQLiteOpenHelper {
 
 
-    public SaveFavoritesDataBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public SaveFavoritesDataBase(Context context) {
         super(context, "favorites.db", null, 1);
     }
 

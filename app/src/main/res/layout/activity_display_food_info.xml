@@ -25,13 +25,13 @@
     </LinearLayout>
     <Button
         android:textSize="25sp"
-        android:text="save to shopping list"
+        android:text="add to shopping list"
         android:id="@+id/save_to_shopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <Button
         android:textSize="25sp"
-        android:text="favorite this food"
+        android:text="favorite "
         android:id="@+id/save_to_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -13,7 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +36,8 @@ public class FavoritesFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Produce");
     final static String TAG_FOOD = "FRIDGE.BUDDY.FOOD.POSITION";
-
+    private SQLiteDatabase mDatabase;
+    private Cursor mCursor;
 
 
     @Override
@@ -46,23 +48,27 @@ public class FavoritesFragment extends Fragment {
         ls = rootView.findViewById(R.id.listThing);
         ca =  new CustomAdapter(getActivity(),R.layout.food_card_view,values);
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    FoodItem food = child.getValue(FoodItem.class);
-                    food.setId(child.getKey());
-                    System.out.println(food.getName());
-                    values.add(food);
-                }
-                ca.notifyDataSetChanged();
-            }
+        String[] production = {FoodItem.COLUMN_NAME};
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        mDatabase = new SaveShoppingListDataBase(this.getContext()).getReadableDatabase();
 
-            }
-        });
+        mCursor = mDatabase.query(FoodItem.TABLE_NAME,
+                production,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        mCursor.moveToFirst();
+        if(mCursor.getCount() != 0) {
+            do {
+                String name = mCursor.getString(0);
+                FoodItem foodItem = new FoodItem();
+                foodItem.setName(name);
+                values.add(foodItem);
+            } while (mCursor.moveToNext());
+        }
         ls.setAdapter(ca);
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

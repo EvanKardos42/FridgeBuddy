@@ -54,12 +54,14 @@ public class ShoppingListFragment extends Fragment {
                                 null);
 
         mCursor.moveToFirst();
-        do {
-           String name = mCursor.getString(0);
-           FoodItem foodItem = new FoodItem();
-           foodItem.setName(name);
-           values.add(foodItem);
-        }while(mCursor.moveToNext());
+        if(mCursor.getCount() != 0) {
+            do {
+                String name = mCursor.getString(0);
+                FoodItem foodItem = new FoodItem();
+                foodItem.setName(name);
+                values.add(foodItem);
+            } while (mCursor.moveToNext());
+        }
 
         ca.notifyDataSetChanged();
         ls.setAdapter(ca);
@@ -92,10 +94,6 @@ public class ShoppingListFragment extends Fragment {
             // Set the text
             TextView textView = (TextView) row.findViewById(R.id.rowText);
             textView.setText(food.getName());
-
-            // Set the image
-            ImageView iv = row.findViewById(R.id.rowImage);
-            new DownLoadImageTask(iv).execute(food.getImage());
             return row;
         }
     }

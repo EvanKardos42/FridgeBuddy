@@ -19,7 +19,8 @@ class FoodDisplayInfo  extends AppCompatActivity {
     Button prediction;
     TextView tx;
     ImageView image;
-    private SQLiteDatabase mDatabase;
+    private SQLiteDatabase shoppingDB;
+    private SQLiteDatabase favoritesDB;
 
     PredictionModel predict;
 
@@ -28,7 +29,8 @@ class FoodDisplayInfo  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_food_info);
 
-        mDatabase = new SaveShoppingListDataBase(this.getApplicationContext()).getWritableDatabase();
+        shoppingDB = new SaveShoppingListDataBase(this.getApplicationContext()).getWritableDatabase();
+        favoritesDB = new SaveFavoritesDataBase(this.getApplicationContext()).getWritableDatabase();
 
         food = (FoodItem) getIntent().getSerializableExtra(FoodFragment.TAG_FOOD);
         predict = new PredictionModel(food.getName());
@@ -41,7 +43,13 @@ class FoodDisplayInfo  extends AppCompatActivity {
         favorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ContentValues values = new ContentValues();
+                values.put(FoodItem.COLUMN_NAME,food.getName());
+                favoritesDB.insert(FoodItem.TABLE_NAME,null,values);
+                Toast.makeText(FoodDisplayInfo.this,
+                        "Added to  Favorites",
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
 
@@ -51,7 +59,12 @@ class FoodDisplayInfo  extends AppCompatActivity {
             public void onClick(View v) {
                 ContentValues values = new ContentValues();
                 values.put(FoodItem.COLUMN_NAME,food.getName());
-                mDatabase.insert(FoodItem.TABLE_NAME,null,values);
+                shoppingDB.insert(FoodItem.TABLE_NAME,null,values);
+
+                Toast.makeText(FoodDisplayInfo.this,
+                        "Added to Shopping List",
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
 
